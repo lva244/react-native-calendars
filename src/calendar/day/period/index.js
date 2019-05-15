@@ -51,7 +51,7 @@ class Day extends Component {
       return true;
     }
 
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
   }
 
   getDrawingStyle(marking) {
@@ -114,10 +114,12 @@ class Day extends Component {
   render() {
     const containerStyle = [this.style.base];
     const textStyle = [this.style.text];
+    const dotStyle = [this.style.dot];
     let leftFillerStyle = {};
     let rightFillerStyle = {};
     let fillerStyle = {};
     let fillers;
+    let dot;
 
     if (this.props.state === 'disabled') {
       textStyle.push(this.style.disabledText);
@@ -190,6 +192,14 @@ class Day extends Component {
       );
     }
 
+    if (this.props.marking.marked) {
+      dotStyle.push(this.style.visibleDot);
+      if (this.props.marking.dotColor) {
+        dotStyle.push({backgroundColor: this.props.marking.dotColor});
+      }
+      dot = (<View style={dotStyle}/>);
+    }
+
     return (
       <TouchableWithoutFeedback
         testID={this.props.testID}
@@ -199,6 +209,7 @@ class Day extends Component {
           {fillers}
           <View style={containerStyle}>
             <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
+            {dot}
           </View>
         </View>
       </TouchableWithoutFeedback>

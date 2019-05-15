@@ -71,6 +71,19 @@ export default function styleConstructor(theme={}) {
     naText: {
       color: '#b6c1cd'
     },
+    dot: {
+      width: 4,
+      height: 4,
+      marginTop: -2,
+      borderRadius: 2,
+      opacity: 0,
+      zIndex: 99,
+      elevation: 99
+    },
+    visibleDot: {
+      opacity: 1,
+      backgroundColor: appStyle.dotColor
+    },
     ...(theme[STYLESHEET_ID] || {})
   });
 }
